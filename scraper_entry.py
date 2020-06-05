@@ -34,8 +34,6 @@ dynamodb = boto3.resource("dynamodb")
 sqs = boto3.resource("sqs", )
 
 
-
-
 def send_to_connection(connection_id, connection_url, data):
     """ Send a message to the connected browser on the websocket.
     """
@@ -299,7 +297,7 @@ def run_job(job):
 
 
 def lambda_handler(event, context):
-    """
+    """ Entrypoint for lambda
     """
 
     for record in event["Records"]:

@@ -25,6 +25,7 @@ def build_url(domain, parts):
 
     return url
 
+
 def scrape_url(url):
     content = load_url(url)
 
