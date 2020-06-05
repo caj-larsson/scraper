@@ -1,0 +1,48 @@
+<html>
+    <body>
+        <button id="button">scrape</button>
+        <div id="log">
+
+        </div>
+
+        <script>
+
+         var targetDiv = document.getElementById("log");
+
+         function appendMessage(message) {
+             var msg = document.createElement('pre');
+             msg.innerHTML = message;
+             targetDiv.appendChild(msg);
+         }
+
+         function start() {
+             let socket = new WebSocket("wss://1ax8ovrjn2.execute-api.ap-southeast-1.amazonaws.com/live");
+
+             socket.onopen = function(e) {
+                 appendMessage("Opened");
+                 socket.send("My name is John");
+             };
+
+             socket.onmessage = function(event) {
+                 console.log(event.data);
+                 appendMessage(event.data);
+             };
+
+             socket.onclose = function(event) {
+                 if (event.wasClean) {
+                     appendMessage("Clean Exit");
+                 } else {
+                     appendMessage("Unclean Exit");
+                 }
+             };
+
+             socket.onerror = function(error) {
+                 appendMessage("Error");
+             };
+         }
+
+         document.getElementById("clickMe").onclick = start();
+        </script>
+
+    </body>
+</html>
